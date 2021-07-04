@@ -17,20 +17,15 @@ const User_1 = __importDefault(require("../models/User"));
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.body;
     try {
-        if (!name)
-            return res.status(422).json({ status: 422, error: 'Please enter your name' });
-        const savedUser = yield User_1.default.findOne({ name });
-        if (savedUser)
-            return res.status(422).json({ status: 422, error: 'User already exists' });
         const newUser = new User_1.default({
             name
         });
         yield newUser.save();
-        return res.status(200).json({ status: 200, message: 'User sucessfully signed up' });
+        return res.status(200).json({ status: 200, message: '¡Te has registrado exitosamente!', data: newUser });
     }
     catch (e) {
         console.log(e);
-        return res.status(500).json({ status: 500, message: 'Internal server error', error: e });
+        return res.status(500).json({ status: 500, message: 'Error de servidor', error: e });
     }
     ;
 });
